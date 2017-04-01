@@ -1,3 +1,3 @@
 # EncodingBasedStorage
 
-  A new random matrix encoding based reliable storage system.
+##**Show how to use regenerating code in distributed storage**
