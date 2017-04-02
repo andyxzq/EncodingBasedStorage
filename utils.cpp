@@ -199,16 +199,16 @@ void Utils::fileCompare(const char *file1, int erasedInd)
 	ostringstream oss;
 	oss << erasedInd;
 	ifstream fin;
-	string sfile = "E:\\RegeneratingCodeExperiment\\RegeneratingCodeExperiment\\Coding\\" + sFilePrefix
-		            + "_b" + oss.str() + "recovered" + sFileSuffix;
+	char *curDir = new char[200];
+	getcwd(curDir, 200);
+	string sfile = string(curDir) + "/Coding/" + sFilePrefix + "_b" + oss.str() + "recovered" + sFileSuffix;
 	int fileLen = getFileLength(sfile.c_str());
 	fin.open(sfile.c_str(), ios::in | ios::binary);
 	char *buf1 = new char[fileLen + 1];
 	fin.read(buf1, fileLen);
 	buf1[fileLen] = '\0';
 	fin.close();
-	sfile = "E:\\RegeneratingCodeExperiment\\RegeneratingCodeExperiment\\backup\\" + sFilePrefix
-		+ "_b" + oss.str() + sFileSuffix;
+	sfile = string(curDir) + "/backup/" + sFilePrefix + "_b" + oss.str() + sFileSuffix;
 	fin.open(sfile.c_str(), ios::in | ios::binary);
 	char *buf2 = new char[fileLen + 1];
 	fin.read(buf2, fileLen);
@@ -216,13 +216,13 @@ void Utils::fileCompare(const char *file1, int erasedInd)
 	fin.close();
 	if (!memcmp(buf1, buf2, fileLen))
 	{
-		cout << string(sFilePrefix + "_b" + oss.str() + sFileSuffix) << "和"
-			 << string(sFilePrefix + "_b" + oss.str() + "recovered" + sFileSuffix) << "相同." << endl;
+		cout << string(sFilePrefix + "_b" + oss.str() + sFileSuffix) << " and "
+			 << string(sFilePrefix + "_b" + oss.str() + "recovered" + sFileSuffix) << " are the same." << endl;
 	}
 	else
 	{
-		cout << string(sFilePrefix + "_b" + oss.str() + sFileSuffix) << "和"
-			 << string(sFilePrefix + "_b" + oss.str() + "recovered" + sFileSuffix) << "不相同." << endl;
+		cout << string(sFilePrefix + "_b" + oss.str() + sFileSuffix) << " and "
+			 << string(sFilePrefix + "_b" + oss.str() + "recovered" + sFileSuffix) << " are not the same." << endl;
 	}
 	delete[] buf1;
 	delete[] buf2;
