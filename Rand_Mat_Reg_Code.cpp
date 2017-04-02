@@ -66,10 +66,10 @@ void RegeneratingCode::GenerateCodingMatrix(const char *pFile)
 	}
 	int i, j;
 	char *curDir = new char[100];
-	_getcwd(curDir, 100);
+	getcwd(curDir, 100);
 	cout << curDir << endl;
 	string destFile = string(curDir) + string("\\Coding\\") + string(pFile);
-	ofstream fout(destFile);
+	ofstream fout(destFile.c_str());
 	int flag = 0;
 	srand(time(NULL));
 	while (!flag)
@@ -207,14 +207,14 @@ void RegeneratingCode::WriteChunksToFile(const char *pFileName, unsigned long lo
 	string sFilePrefix = string(pFileName, pFileName + dotPos);
 	string sFileSuffix = string(pFileName + dotPos);
 	char *curDir = new char[100];
-	_getcwd(curDir, 100);
+	getcwd(curDir, 100);
 	string destDir = string(curDir) + string("\\Coding\\");
 	for (int i = 0; i < n; i++)
 	{
 		ostringstream oss;
 		oss << i+1;
 		string sFileName = destDir + sFilePrefix + "_b" + oss.str() + sFileSuffix;
-		ofstream fout(sFileName, ios::binary|ios::out|ios::app);
+		ofstream fout(sFileName.c_str(), ios::binary|ios::out|ios::app);
 		fout.write((char*)coding[i], chunkSize*8);
 		fout.close();
 	}
@@ -356,10 +356,10 @@ void RegeneratingCode::RegenerateChunkFile(const char *pFileName, char **helpDat
 	ostringstream oss;
 	oss << erasedInd;
 	char *curDir = new char[200];
-	_getcwd(curDir, 200);
+	getcwd(curDir, 200);
 	string targetFile = string(curDir) + string("\\Coding\\") + sFilePrefix + "_b" + oss.str() +
 		                "recovered" + sFileSuffix;
-	ofstream fout(targetFile, ios::app | ios::binary | ios::out);
+	ofstream fout(targetFile.c_str(), ios::app | ios::binary | ios::out);
 	for (i = 0; i < readIns; i++)
 	{
 		fout.write(helpData[i], d);
@@ -457,10 +457,10 @@ void RegeneratingCode::RegenerateChunkFile(const char *pFileName, int **invMatri
 	ostringstream oss;
 	oss << erasedInd;
 	char *curDir = new char[200];
-	_getcwd(curDir, 200);
+	getcwd(curDir, 200);
 	string targetFile = string(curDir) + string("\\Coding\\") + sFilePrefix + "_b" + oss.str() +
 		"recovered" + sFileSuffix;
-	ofstream fout(targetFile, ios::app | ios::binary | ios::out);
+	ofstream fout(targetFile.c_str(), ios::app | ios::binary | ios::out);
 	for (i = 0; i < readIns; i++)
 	{
 		if (category == "SR-MBR")
@@ -494,16 +494,16 @@ void RegeneratingCode::Regenerate(const char *pFileName, const char *pCodingMatF
 	ostringstream oss;
 	oss << erasedInd;
 	char *curDir = new char[100];
-	_getcwd(curDir, 100);
+	getcwd(curDir, 100);
 	string targetFile = string(curDir) + string("\\Coding\\") + sFilePrefix + "_b" + oss.str() + sFileSuffix;
 	int fileChunkSize = Utils::getFileLength(targetFile.c_str());
 	//cout << "file chunk size: " << fileChunkSize << endl;
-	fin.open(targetFile, ios::in | ios::binary);
+	fin.open(targetFile.c_str(), ios::in | ios::binary);
 	char *tmpBuffer = new char[fileChunkSize + 1];
 	fin.read(tmpBuffer, fileChunkSize);
 	fin.close();
 	string destFile = string(curDir) + string("\\backup\\") + sFilePrefix + "_b" + oss.str() + sFileSuffix;
-	fout.open(destFile, ios::out | ios::binary);
+	fout.open(destFile.c_str(), ios::out | ios::binary);
 	fout.write(tmpBuffer, fileChunkSize);
 	fout.close();
 	remove(targetFile.c_str());                                              //删除随机选定的文件块
@@ -537,7 +537,7 @@ void RegeneratingCode::Regenerate(const char *pFileName, const char *pCodingMatF
 		oss.str("");
 		oss << *iter;
 		targetFile = string(curDir) + string("\\Coding\\") + sFilePrefix + "_b" + oss.str() + sFileSuffix;
-		fin.open(targetFile, ios::in | ios::binary);
+		fin.open(targetFile.c_str(), ios::in | ios::binary);
 		fin.read((char*)coding[i++], alpha*readIns*8);
 		fin.close();
 	}

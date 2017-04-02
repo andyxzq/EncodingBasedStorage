@@ -2,12 +2,13 @@
 #define _Rand_Mat_Reg_Code_H_
 #include <iostream>
 #include <cstdio>
+#include <cstring>
 #include <fstream>
 #include <ctime>
 #include <string>
 #include <sstream>
 #include <set>
-#include <direct.h>
+#include <unistd.h>
 using namespace std;
 
 class RegeneratingCode

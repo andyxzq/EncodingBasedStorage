@@ -121,9 +121,9 @@ int Utils::getFileLength(const char *pFileName)
 void Utils::IntArrayXor(int *arr1, int *arr2, int num)
 {
 	int *end = arr2 + num;
-	unsigned __int64 *pStart = (unsigned __int64*)arr2;
-	unsigned __int64 *pEnd = (unsigned __int64*)end;
-	unsigned __int64 *pDest = (unsigned __int64*)arr1;
+	unsigned long long *pStart = (unsigned long long*)arr2;
+	unsigned long long *pEnd = (unsigned long long*)end;
+	unsigned long long *pDest = (unsigned long long*)arr1;
 	while (pStart < pEnd) {
 		*pDest = ((*pDest) ^ (*pStart));
 		pStart++;
